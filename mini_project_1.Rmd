@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+## 1. Introduction
 
 This mini-project is part of the deliverables in the STAT545A course. It involves installation of the `datateachr` package by Hayley Boyce and Jordan Bourak which currently consists of 7 semi-tidy datasets.
 
@@ -18,25 +18,28 @@ There are 3 major tasks in the project:
 2. Explore your dataset
 3. Write your research questions
 
-# Learning Objectives
+## 1.1 Learning Objectives
 
 By the end of this project, I should:
-+ Become familiar with the datasets, especially the one I choose to work more indepth with
++ Become familiar with the datasets, especially the one I choose to work with in greater depth
 + Be able to formulate 4 research questions that I would like to answer with my data
 + Generate a well written and reproducible report using R Markdown
 
+## 1.2 Install the [`datateachr`](https://github.com/UBC-MDS/datateachr) package 
 
-
-```{r }
+Type the following code in your **R terminal**. It is a one-off exercise in that once it is installed, you only need to load it whenever you want to use the package and the datasets it contains.
 
 ```
+# install package
+install.packages("devtools") # load `devtools` before running the next code
+devtools::install_github("UBC-MDS/datateachr")
+```
 
-## 
+## 1.3 Load the following packages
 
-
-
-```{r }
-
+```{r}
+library(datateachr)
+library(tidyverse)
 ```
 
 
