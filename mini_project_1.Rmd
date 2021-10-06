@@ -1,6 +1,6 @@
 ---
 title: "Mini Data-Analysis Deliverable 1"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +16,7 @@ This mini-project is part of the deliverables in the STAT545A course. It involve
 It also requires loading the `datateachr` and `tidyverse` packages which are necessary for a successful completion of the project.
 
 
-**There are 3 major tasks in the project**:
+**There are 3 major tasks in this project**:
 
 + Choose your favorite dataset
 + Explore your dataset
@@ -34,13 +34,8 @@ By the end of this project, I should:
 
 ## 1.2 Install the [`datateachr`](https://github.com/UBC-MDS/datateachr) package 
 
-Type the following code in your **R terminal**. It is a one-off exercise in that once it is installed, you only need to load it whenever you want to use the package and the datasets it contains.
+To install the **datateachr** package, first install the **devtools** package using **install.packages()** with parentheses surrounding *devtools* in your **R console** and load the **devtools** package using **library()** before installing *datateachr* with this code-  **devtools::install_github("UBC-MDS/datateachr")**. It is a one-off exercise in that once it is installed, you only need to reload it whenever you start a new session to use the package and the datasets it contains.
 
-```
-# install package
-install.packages("devtools") # load `devtools` before running the next code
-devtools::install_github("UBC-MDS/datateachr")
-```
 
 ## 1.3 Load required packages
 
@@ -82,13 +77,85 @@ As mentioned earlier, the following are the 7 datasets to choose from:
 **The above description is an excerpt from the milestone document for the project prepared by Icíar Fernández Boyano and launched by Vincenzo Coia**.
 
 
-### 3.1. Instructions for the project
-1. Out of the 7 datasets available in the **datateachr** package, choose **4** that appeal to you based on their description.
+### 3.1. Instructions for the project as given by the teaching team
 
-The **4** choices are:
+**Instruction 1.1**: Out of the 7 datasets available in the **datateachr** package, choose **4** that appeal to you based on their description.
 
-1: apt_buildings
-2: cancer_sample
+#### 3.1.1. The **4** choices are:
+
+1. apt_buildings
+2. cancer_sample
 3. flow_sample
 4. vancouver_trees
 
+
+**Instruction 1.2**: One way to narrow down your selection is to *explore* the datasets. Use your knowledge of dplyr to find out at least 3 attributes about each of these datasets. The goal is to have an idea of *what the data looks like*
+
+
+#### 3.1.2. Explore the datasets to have an idea of what they look like.
+
+To explore each of the four chosen datasets, I will look at class of the data, variable types, number of rows and columns, the variable names, the total number of missing values (NAs).
+
+
+```{r}
+# explore the apt_buildings dataset
+# get class of the dataset
+class(apt_buildings)
+
+# find out number of rows and columns, names of variables, variable types
+glimpse(apt_buildings)
+
+# get total number of missing values(NAs)
+sum(is.na(apt_buildings))
+
+```
+
+From the analysis above, one can conclude that the *apt_buildings* is a dataframe that has been converted to a tibble, and has 3,455 rows and 37 columns. The data contains mostly character variables with few doubles. A total of 6286 values are missing (NAs). 
+
+
+
+```{r}
+# explore the cancer_sample dataset
+# get class of the dataset
+class(cancer_sample)
+
+# find out number of rows and columns, names of variables, variable types
+glimpse(cancer_sample)
+
+# get total number of missing values(NAs)
+sum(is.na(cancer_sample))
+```
+
+The analysis above shows that the *cancer_sample* dataset is a dataframe that has been converted to a tibble, and has 569 rows and 32 columns. Most of the variables are doubles with only 1 character variable. Surprisingly, there's no missing value in the dataset.
+
+
+
+```{r}
+# explore the flow_sample dataset
+# get class of the dataset
+class(flow_sample)
+
+# determine number of rows and columns, names of variables, variable types
+glimpse(flow_sample)
+
+# get total number of missing values(NAs)
+sum(is.na(flow_sample))
+```
+
+The *flow_sample* dataset is a dataframe that has been converted to a tibble, and has 218 rows and 7 columns. The variable types are roughly equal- 3 characters and 4 doubles. There are 125 missing values in the dataset.
+
+
+
+```{r}
+# explore the vancouver_trees dataset
+#  get class of the dataset
+class(vancouver_trees)
+
+# determine number of rows and columns, names of variables, variable types
+glimpse(vancouver_trees)
+
+# get total number of missing values
+sum(is.na(vancouver_trees))
+```
+
+To summarize findings from the *vancouver_trees* dataset, it is a dataframe that has been converted to a tibble, and comprises 146,611 rows and 20 columns. There are more character variables than doubles. There's one date variable type. There are multiple missing values in the dataset(191,135).
