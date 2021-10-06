@@ -1,11 +1,13 @@
 ---
-title: "Mini Data_Analysis Deliverable 1"
-output: html_document
+title: "Mini Data-Analysis Deliverable 1"
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
 
 ## 1. Introduction
 
@@ -13,17 +15,22 @@ This mini-project is part of the deliverables in the STAT545A course. It involve
 
 It also requires loading the `datateachr` and `tidyverse` packages which are necessary for a successful completion of the project.
 
-There are 3 major tasks in the project:
-1. Choose your favorite dataset
-2. Explore your dataset
-3. Write your research questions
+
+**There are 3 major tasks in the project**:
+
++ Choose your favorite dataset
++ Explore your dataset
++ Write your research questions
+
 
 ## 1.1 Learning Objectives
 
 By the end of this project, I should:
+
 + Become familiar with the datasets, especially the one I choose to work with in greater depth
 + Be able to formulate 4 research questions that I would like to answer with my data
 + Generate a well written and reproducible report using R Markdown
+
 
 ## 1.2 Install the [`datateachr`](https://github.com/UBC-MDS/datateachr) package 
 
@@ -35,11 +42,53 @@ install.packages("devtools") # load `devtools` before running the next code
 devtools::install_github("UBC-MDS/datateachr")
 ```
 
-## 1.3 Load the following packages
+## 1.3 Load required packages
 
 ```{r}
 library(datateachr)
 library(tidyverse)
 ```
 
+
+## 2. Define variables
+
+It is always beneficial to define the variables/datasets you will be using in your analysis early in your project. The datasets can be explored without defining them once the package containing them is loaded. However, for clarity and to notice at a glance the source of the datasets, I like to define them early enough.
+
+```{r}
+# define variables
+apt_buildings <- datateachr::apt_buildings
+building_permits <- datateachr::building_permits
+cancer_sample <- datateachr::cancer_sample
+flow_sample <- datateachr::flow_sample
+parking_meters <- datateachr::parking_meters
+steam_games <- datateachr::steam_games
+vancouver_trees <- datateachr::vancouver_trees
+```
+
+
+## 3. Task 1: Choose your favorite dataset
+
+As mentioned earlier, the following are the 7 datasets to choose from:
+
++ *apt_buildings*: Acquired courtesy of The City of Toronto's Open Data Portal. It currently has 3455 rows and 37 columns.
++ *building_permits*: Acquired courtesy of the City of Vancouver's Open Data Portal. It currently has 20680 rows and 14 columns.
++ *cancer_sample*: Acquired courtesy of UCI Machine Learning Repository. It currently has 569 rows and 32 columns.
++ *flow_sample*: Acquired courtesy of The Government of Canada's Historical Hydrometric Database. It currently has 218 rows and 7 columns.
++ *parking-meters*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 10032 rows and 22 columns.
++ *steam_games*: Acquired courtesy of Kaggle. It currently has 40833 rows and 21 columns.
++ *vancouver_trees*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 146611 rows and 20 columns.
+
+
+**The above description is an excerpt from the milestone document for the project prepared by Icíar Fernández Boyano and launched by Vincenzo Coia**.
+
+
+### 3.1. Instructions for the project
+1. Out of the 7 datasets available in the **datateachr** package, choose **4** that appeal to you based on their description.
+
+The **4** choices are:
+
+1: apt_buildings
+2: cancer_sample
+3. flow_sample
+4. vancouver_trees
 
