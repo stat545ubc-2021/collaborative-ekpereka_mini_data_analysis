@@ -1,0 +1,42 @@
+---
+title: "Mini Data_Analysis Deliverable 1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This mini-project is part of the deliverables in the STAT545A course. It involves installation of the `datateachr` package by Hayley Boyce and Jordan Bourak which currently consists of 7 semi-tidy datasets.
+
+It also requires loading the `datateachr` and `tidyverse` packages which are necessary for a successful completion of the project.
+
+There are 3 major tasks in the project:
+1. Choose your favorite dataset
+2. Explore your dataset
+3. Write your research questions
+
+# Learning Objectives
+
+By the end of this project, I should:
++ Become familiar with the datasets, especially the one I choose to work more indepth with
++ Be able to formulate 4 research questions that I would like to answer with my data
++ Generate a well written and reproducible report using R Markdown
+
+
+
+```{r }
+
+```
+
+## 
+
+
+
+```{r }
+
+```
+
+
