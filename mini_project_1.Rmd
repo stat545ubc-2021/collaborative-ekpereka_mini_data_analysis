@@ -185,9 +185,46 @@ flow_sample %>% ggplot(aes(month, flow)) +
 
 #### 3.1.5. One research question for each dataset
 
-+ `apt_buildings`: Did the number of storeys built change over the years?
-+ `flow_sample`: Which months had the highest flow intensity?
++ `apt_buildings`: Does the number of storeys built change over the years?
++ `flow_sample`: Which months have the highest flow intensity?
 + `cancer_sample`: Is there a relationship between diagnosis and mean perimeter of nuclei?
-+ `vancouver_trees`: Were root barriers installed around all the trees planted?
++ `vancouver_trees`: Does each tree planted have a root barrier installed?
 
-**Final choice**: Out of the four research questions, it seems investigating whether there's a change in the number of storeys built as the years rolled by would be the most interesting to explore.
+**Final choice**: Out of the four research questions, it seems investigating whether there's a change in the number of storeys built as the years roll by would be the most interesting.Therefore, I choose the `apt_buildings` dataset.
+
+
+
+# 4. Task 2: Exploring your dataset
+
+**Instruction 2.1**: Complete *4* out of the following *8* exercises to dive deeper into your data. All datasets are different and therefore, not all of these tasks may make sense for your data - which is why you should only answer 4. Use *dplyr* and *ggplot*.
+
+1. Plot the distribution of a numeric variable.
+2. Create a new variable based on other variables in your data (only if it makes sense).
+3. Investigate how many missing values there are per variable. Can you find a way to plot this?
+4. Explore the relationship between 2 variables in a plot.
+5. Filter observations in your data according to your own criteria. Think of what you'd like to explore - again, if this was the titanic dataset, I may want to narrow my search to passengers born in a particular year...
+6. Use a boxplot to look at the frequency of different observations within a single variable. You can do this for more than one variable if you wish!
+7. Make a new tibble with  a subset of your data, with variables and observations that you are interested in exploring.
+8. Use a density plot to explore any of your variables (that are suitable for this type of plot).
+
+#### 4.1. Below are the *4* exercises
+
+```{r}
+# plot the distribution of a numeric variable
+apt_buildings %>% ggplot(aes(no_of_storeys)) + 
+  geom_histogram(breaks = seq(0, 55, by = 1))
+```
+
+
+```{r}
+# Explore the relationship between the year a building was built and the number of storeys built in a plot
+apt_buildings %>% ggplot(aes(year_built, no_of_storeys)) +
+  geom_point(alpha = 0.2) + theme_minimal()
+  
+```
+
+
+```{r}
+# 
+```
+
