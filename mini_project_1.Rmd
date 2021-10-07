@@ -91,10 +91,9 @@ As mentioned earlier, the following are the 7 datasets to choose from:
 
 **Instruction 1.2**: One way to narrow down your selection is to *explore* the datasets. Use your knowledge of dplyr to find out at least 3 attributes about each of these datasets. The goal is to have an idea of *what the data looks like*
 
-
 #### 3.1.2. Explore the datasets to have an idea of what they look like.
 
-To explore each of the four chosen datasets, I will look at class of the data, variable types, number of rows and columns, the variable names, the total number of missing values (NAs).
+To explore each of the four chosen datasets, I will look at class of the data, variable types, number of rows and columns, the variable names, the total number of missing values (NAs). The code below are from what was taught in STAT545A and the R for Data Science book by Hadley Wickham & Garrett Grolemund
 
 
 ```{r}
@@ -159,3 +158,36 @@ sum(is.na(vancouver_trees))
 ```
 
 To summarize findings from the *vancouver_trees* dataset, it is a dataframe that has been converted to a tibble, and comprises 146,611 rows and 20 columns. There are more character variables than doubles. There's one date variable type. There are multiple missing values in the dataset(191,135).
+
+
+**Instruction 1.3**: Now that you've explored the 4 datasets that you were initially interested in, let's narrow it down to 2. What led you to choose these 2? Briefly explain your choices below, and feel free to include any code in your explanation.
+
+#### 3.1.3. The 2 choices are:
+
+1. apt_buildings
+2. flow_sample
+
+
+#### 3.1.4. Brief reasons for the 2 choices
+
+First, I chose **apt_buildings** because when I explored it, I could see that there are `r ncol(apt_buildings)` columns in the dataset with `year_built` and `no_of_storeys` as part of the variables. So, I became curious to see if the number of storeys built changed as the years rolled by.
+
+Second, I chose **flow_sample** because I wanted to visualize the months with the highest flow. To find out, I ran the code below.
+```{r}
+# visualize months with highest flow
+flow_sample %>% ggplot(aes(month, flow)) + 
+  geom_jitter(alpha = 0.5, width = 0.2) + 
+  theme_minimal()
+```
+
+
+**Instruction 1.4**: Try to think of 1 research question that you would want to answer with each dataset. Note them down below, and make your final choice based on what seems more interesting to you!
+
+#### 3.1.5. One research question for each dataset
+
++ `apt_buildings`: Did the number of storeys built change over the years?
++ `flow_sample`: Which months had the highest flow intensity?
++ `cancer_sample`: Is there a relationship between diagnosis and mean perimeter of nuclei?
++ `vancouver_trees`: Were root barriers installed around all the trees planted?
+
+**Final choice**: Out of the four research questions, it seems investigating whether there's a change in the number of storeys built as the years rolled by would be the most interesting to explore.
