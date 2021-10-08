@@ -93,7 +93,7 @@ As mentioned earlier, the following are the 7 datasets to choose from:
 
 #### 3.1.2. Explore the datasets to have an idea of what they look like.
 
-To explore each of the four chosen datasets, I will look at class of the data, variable types, number of rows and columns, the variable names, the total number of missing values (NAs). The code below are from what was taught in STAT545A and the R for Data Science book by Hadley Wickham & Garrett Grolemund
+To explore each of the four chosen datasets, I will look at class of the data, variable types, number of rows and columns, the variable names, the total number of missing values (NAs). *The code below are from what was taught in STAT545A and the R for Data Science book by Hadley Wickham & Garrett Grolemund.*
 
 
 ```{r}
@@ -165,18 +165,26 @@ To summarize findings from the *vancouver_trees* dataset, it is a dataframe that
 #### 3.1.3. The 2 choices are:
 
 1. apt_buildings
-2. flow_sample
+2. cancer_sample
 
 
 #### 3.1.4. Brief reasons for the 2 choices
 
 First, I chose **apt_buildings** because when I explored it, I could see that there are `r ncol(apt_buildings)` columns in the dataset with `year_built` and `no_of_storeys` as part of the variables. So, I became curious to see if the number of storeys built changed as the years rolled by.
 
-Second, I chose **flow_sample** because I wanted to visualize the months with the highest flow. To find out, I ran the code below.
 ```{r}
-# visualize months with highest flow
-flow_sample %>% ggplot(aes(month, flow)) + 
-  geom_jitter(alpha = 0.5, width = 0.2) + 
+# Explore the relationship between the year a building was built and the number of storeys built in a plot
+apt_buildings %>% ggplot(aes(year_built, no_of_storeys)) +
+  geom_jitter(alpha = 0.1, width = 0.2) + theme_minimal()
+```
+
+
+Second, I chose **cancer_sample** because I wanted to investigate the difference in concavity of nuclei based on diagnosis (benign or malignant). To find out, I ran the code below.
+
+```{r}
+# visualize the mean concavity of nuclei of samples based on diagnosis
+cancer_sample %>% ggplot(aes(diagnosis, concavity_mean)) + 
+  geom_boxplot() + 
   theme_minimal()
 ```
 
@@ -185,12 +193,12 @@ flow_sample %>% ggplot(aes(month, flow)) +
 
 #### 3.1.5. One research question for each dataset
 
-+ `apt_buildings`: Does the number of storeys built change over the years?
-+ `flow_sample`: Which months have the highest flow intensity?
++ `apt_buildings`: Did the number of storeys built change over the years?
++ `flow_sample`: Which months had the highest flow intensity?
 + `cancer_sample`: Is there a relationship between diagnosis and mean perimeter of nuclei?
 + `vancouver_trees`: Does each tree planted have a root barrier installed?
 
-**Final choice**: Out of the four research questions, it seems investigating whether there's a change in the number of storeys built as the years roll by would be the most interesting.Therefore, I choose the `apt_buildings` dataset.
+**Final choice**: Out of the four research questions, it seems investigating whether there's a relationship between cancer diagnosis (benign or malignant) and mean perimeter of sample nuclei would be the most interesting.Therefore, I choose the `cancer_sample` dataset.
 
 
 
@@ -211,20 +219,49 @@ flow_sample %>% ggplot(aes(month, flow)) +
 
 ```{r}
 # plot the distribution of a numeric variable
-apt_buildings %>% ggplot(aes(no_of_storeys)) + 
-  geom_histogram(breaks = seq(0, 55, by = 1))
+cancer_sample %>% ggplot(aes(radius_mean)) + 
+  geom_histogram()
 ```
+`radius_mean` is a numeric variable in the *cancer_sample* dataset. Therefore, I wanted to investigate the spread of the mean radius across all observations. `geom_histogram` is one of the geometric objects for visualizing distribution of numeric/continuous variables in a dataset. I piped (%>%) the data into the ggplot function and mapped `radius_mean` to the x-axis as geom_histogram takes only the variable for the x-axis and computes `count` on the y-axis.
+
 
 
 ```{r}
-# Explore the relationship between the year a building was built and the number of storeys built in a plot
-apt_buildings %>% ggplot(aes(year_built, no_of_storeys)) +
-  geom_point(alpha = 0.2) + theme_minimal()
-  
+# explore the relationship between 2 variables (diagnosis and area_mean) in a plot
+cancer_sample %>% ggplot( aes(diagnosis, area_mean)) +
+   geom_boxplot()
 ```
+I wanted to look at how `area_mean`( a numeric variable) varies between benign and malignant samples under diagnosis`(a categorical variable), so I chose a boxplot which shows the 25th, 50th and 75th percentiles of the numeric variable of interest on the box and outliers on the whiskers.
+
 
 
 ```{r}
-# 
+# make a new tibble with a subset of your data, with variables and observations that you are interested in exploring
+cancer_sample_sub <- cancer_sample %>% select(diagnosis:area_se, -fractal_dimension_mean)
 ```
+I used the `select` function from the `dplyr` package to subset my data by selecting all variables from *diagnosis to area_se*, using a `minus` sign to exclude *fractal_dimension_mean* which occurred within the specified sequence. All other variables outside the sequence were also dropped. I stored the new tibble in a variable named `cancer-sample_sub`.
+
+
+
+```{r}
+# use a density plot to explore any of your variables
+cancer_sample %>% ggplot(aes(radius_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.2) +
+  theme_minimal()
+```
+A `density` plot takes a numeric variable. So, I used it to look at the distribution of the `radius_mean` of cancer nuclei between `benign` and `malignant` samples. I mapped `diagnosis` to the `fill` aesthetics and used an `alpha` of 0.2 to tone down the colour on the plot. I also added another layer- `theme_minimal`to lighten the grids in the background.
+
+
+
+## 5. Task 3: Write your research questions
+
+Figure out 4 research questions that you would like to answer with your data.
+
+#### 5.1. Below are the 4 research questions I would like to answer using the *cancer_sample* data:
+
+1. Is there a relationship between diagnosis and mean perimeter of nuclei of samples?
+2. Do the concave_points change as the perimeter of nuclei change?
+3. Do the nuclei become more thickened as the diagnosis worsens?
+4. Is there likely to be more standard error of perimeter of nuclei in malignant than benign samples?
+
 
