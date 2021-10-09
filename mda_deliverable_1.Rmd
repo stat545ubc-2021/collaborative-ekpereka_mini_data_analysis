@@ -181,3 +181,37 @@ To summarize findings from the *vancouver_trees* dataset, it is a dataframe that
 
 
 
+
+**Instruction 1.3**: Now that you've explored the 4 datasets that you were initially interested in, let's narrow it down to 2. What led you to choose these 2? Briefly explain your choices below, and feel free to include any code in your explanation.
+
+
+#### 3.1.3. The 2 choices
+
+1. apt_buildings
+2. cancer_sample
+
+
+
+#### 3.1.4. Brief reasons for the 2 choices
+
+**First**, I chose **apt_buildings** because when I explored it, I could see that there are `r ncol(apt_buildings)` columns in the dataset with `heating_type` as part of the variables. So, I became curious to see the most commonly used heating system. Therefore, I ran the code below.
+
+
+```{r}
+# determine the most commonly used heating system
+apt_buildings %>% ggplot(aes(heating_type)) +
+   geom_bar()
+```
+
+
+
+**Second**, I chose **cancer_sample** because I wanted to investigate the relationship between diagnosis (benign or malignant) and mean perimeter of nuclei of samples. To find out, I ran the code below.
+
+```{r}
+# investigate the relationship between diagnosis(benign and malignant) and mean perimeter of nuclei
+cancer_sample %>% ggplot(aes(diagnosis, perimeter_mean)) + 
+  geom_jitter(alpha = 0.2, width = 0.2) + 
+  theme_minimal()
+```
+
+
