@@ -1,6 +1,6 @@
 ---
 title: "Mini Data-Analysis Deliverable 1"
-date: "October 8, 2021"
+date: "October 9, 2021"
 author: "Ekpereka Amutaigwe"
 output: 
    github_document:
@@ -65,6 +65,119 @@ parking_meters <- datateachr::parking_meters
 steam_games <- datateachr::steam_games
 vancouver_trees <- datateachr::vancouver_trees
 ```
+
+
+
+## 3. Task 1: Choose your favorite dataset
+
+As mentioned earlier, the following are the 7 datasets to choose from:
+
++ *apt_buildings*: Acquired courtesy of The City of Toronto's Open Data Portal. It currently has 3455 rows and 37 columns.
++ *building_permits*: Acquired courtesy of the City of Vancouver's Open Data Portal. It currently has 20680 rows and 14 columns.
++ *cancer_sample*: Acquired courtesy of UCI Machine Learning Repository. It currently has 569 rows and 32 columns.
++ *flow_sample*: Acquired courtesy of The Government of Canada's Historical Hydrometric Database. It currently has 218 rows and 7 columns.
++ *parking-meters*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 10032 rows and 22 columns.
++ *steam_games*: Acquired courtesy of Kaggle. It currently has 40833 rows and 21 columns.
++ *vancouver_trees*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 146611 rows and 20 columns.
+
+
+**The above description is an excerpt from the milestone document for the project prepared by Icíar Fernández Boyano and launched by Vincenzo Coia**.
+
+
+
+### 3.1. Instructions for the project as given by the teaching team
+
+**Instruction 1.1**: Out of the 7 datasets available in the **datateachr** package, choose **4** that appeal to you based on their description.
+
+
+#### 3.1.1. The 4 choices
+
+1. apt_buildings
+2. cancer_sample
+3. flow_sample
+4. vancouver_trees
+
+
+**Instruction 1.2**: One way to narrow down your selection is to *explore* the datasets. Use your knowledge of dplyr to find out at least 3 attributes about each of these datasets. The goal is to have an idea of *what the data looks like*
+
+
+#### 3.1.2. Exploration of the datasets to have an idea of what they look like
+
+To explore each of the four chosen datasets, I will look at class of the data, variable types, number of rows and columns, the variable names, the total number of missing values (NAs). 
+
+**The code below are from what I learned in STAT545A and the R for Data Science book by Hadley Wickham & Garrett Grolemund.**
+
+
+
+```{r}
+# explore the apt_buildings dataset
+# get class of the dataset
+class(apt_buildings)
+
+# find out number of rows and columns, names of variables, variable types
+glimpse(apt_buildings)
+
+# get total number of missing values(NAs)
+sum(is.na(apt_buildings))
+
+```
+
+
+From the analysis above, one can conclude that the *apt_buildings* is a dataframe that has been converted to a tibble, and has 3,455 rows and 37 columns. The data contains mostly character variables with few doubles. A total of 6286 values are missing (NAs). 
+
+
+
+
+```{r}
+# explore the cancer_sample dataset
+# get class of the dataset
+class(cancer_sample)
+
+# find out number of rows and columns, names of variables, variable types
+glimpse(cancer_sample)
+
+# get total number of missing values(NAs)
+sum(is.na(cancer_sample))
+```
+
+
+The analysis above shows that the *cancer_sample* dataset is a dataframe that has been converted to a tibble, and has 569 rows and 32 columns. Most of the variables are doubles with only 1 character variable. Surprisingly, there's no missing value in the dataset.
+
+
+
+
+```{r}
+# explore the flow_sample dataset
+# get class of the dataset
+class(flow_sample)
+
+# determine number of rows and columns, names of variables, variable types
+glimpse(flow_sample)
+
+# get total number of missing values(NAs)
+sum(is.na(flow_sample))
+```
+
+
+The *flow_sample* dataset is a dataframe that has been converted to a tibble, and has 218 rows and 7 columns. The variable types are roughly equal- 3 characters and 4 doubles. There are 125 missing values in the dataset.
+
+
+
+
+```{r}
+# explore the vancouver_trees dataset
+#  get class of the dataset
+class(vancouver_trees)
+
+# determine number of rows and columns, names of variables, variable types
+glimpse(vancouver_trees)
+
+# get total number of missing values
+sum(is.na(vancouver_trees))
+```
+
+
+To summarize findings from the *vancouver_trees* dataset, it is a dataframe that has been converted to a tibble, and comprises 146,611 rows and 20 columns. There are more character variables than doubles. There's one date variable type. There are multiple missing values in the dataset(191,135).
 
 
 
