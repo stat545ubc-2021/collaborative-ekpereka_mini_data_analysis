@@ -215,3 +215,89 @@ cancer_sample %>% ggplot(aes(diagnosis, perimeter_mean)) +
 ```
 
 
+
+**Instruction 1.4**: Try to think of 1 research question that you would want to answer with each dataset. Note them down below, and make your final choice based on what seems more interesting to you!
+
+
+#### 3.1.5. One research question for each dataset
+
++ `apt_buildings`: Did the number of storeys built increase over the years?
++ `flow_sample`: Which months had the highest flow intensity?
++ `cancer_sample`: Is there a relationship between diagnosis and mean perimeter of nuclei?
++ `vancouver_trees`: Does each tree planted have a root barrier installed?
+
+
+
+**Final choice**: Out of the four research questions, it seems investigating whether the number of storeys built increased as the years rolled by would be the most interesting.Therefore, I choose the `apt_buildings` dataset.
+
+
+
+## 4. Task 2: Exploring your dataset
+
+**Instruction 2.1**: Complete *4* out of the following *8* exercises to dive deeper into your data. All datasets are different and therefore, not all of these tasks may make sense for your data - which is why you should only answer 4. Use *dplyr* and *ggplot*.
+
+1. Plot the distribution of a numeric variable.
+2. Create a new variable based on other variables in your data (only if it makes sense).
+3. Investigate how many missing values there are per variable. Can you find a way to plot this?
+4. Explore the relationship between 2 variables in a plot.
+5. Filter observations in your data according to your own criteria. Think of what you'd like to explore - again, if this was the titanic dataset, I may want to narrow my search to passengers born in a particular year...
+6. Use a boxplot to look at the frequency of different observations within a single variable. You can do this for more than one variable if you wish!
+7. Make a new tibble with  a subset of your data, with variables and observations that you are interested in exploring.
+8. Use a density plot to explore any of your variables (that are suitable for this type of plot).
+
+
+
+### 4.1. The 4 exercises
+
+```{r}
+# plot the distribution of a numeric variable
+apt_buildings %>% ggplot(aes(no_of_storeys)) +
+    geom_histogram(binwidth = 1.5)
+```
+
+`no_of_storeys` is a numeric variable in the *apt_buildings* dataset. Therefore, I wanted to investigate the spread of the number of storeys built. `geom_histogram` is one of the geometric objects for visualizing distribution of numeric/continuous variables in a dataset. I piped (%>%) the data into the ggplot function and mapped `no_of_storeys` to the x-axis as geom_histogram takes only the variable for the x-axis and computes `count` on the y-axis.
+
+
+
+```{r}
+# Explore the relationship between the year a building was erected and the number of storeys built in a plot
+apt_buildings %>% ggplot(aes(year_built, no_of_storeys)) +
+  geom_jitter(alpha = 0.1, width = 0.2, na.rm = TRUE) + theme_minimal()
+```
+
+To investigate the number of storeys (numeric variable) that were erected as the years rolled by (in this case a numeric variable), I chose a `jitterplot`. A jitterplot helps to jitter the points in a controlled manner to separate overlapping points in a large dataset. I also used `alpha` to make the points more transparent so as to see the points more clearly. The plot shows that the number of storeys built increased rapidly after 1950, with the highest building erected after the year 2000. 
+
+
+
+```{r}
+# make a new tibble with a subset of your data, with variables and observations that you are interested in exploring
+apt_buildings_sub <- apt_buildings %>% 
+     select(id:no_barrier_free_accessible_units, -c(amenities, barrier_free_accessibilty_entr, bike_parking, pets_allowed, prop_management_company_name, rsn, site_address, year_registered)) %>% 
+     filter(year_built >= 1950) %>% 
+     arrange(desc(no_of_storeys))
+
+# take a look at the new tibble
+glimpse(apt_buildings_sub)
+```
+
+
+I used 3 verbs (select, filter, arrange) from the `dplyr` package to subset my data. I used `select` to choose variables from `id to no_barrier_free_accessible_units` excluding `amenities, barrier_free_accessibilty_entr, bike_parking, pets_allowed, prop_manangement_company_name, rsn, site_address and year_registered` which occurred within the specified sequence. I then used `filter` to subset my data by buidings which were erected from 1950 upward. Next, I used `arrange` and `desc` to re-order the observations by the `no_of_storeys` column in descending order.  The new tibble was stored in a variable named `apt_buildings_sub`. I them used `glimpse` to look at my new tibble.
+
+
+
+```{r}
+# use a density plot to explore any of your variables
+apt_buildings %>% filter(!is.na(year_built)) %>% ggplot(aes(year_built)) +
+  geom_density(aes(fill = property_type), alpha = 0.2) +
+  theme_minimal()
+```
+
+I used a `density plot` to study the time-period from 1800 to 2019 in relation to the property type built. I chose this exercise because it paints a vivid picture of the time-period in which the three property types were built. 
+
+Most of the houses were built between the years 1950 and 2000. Most private buildings were erected between 1950 and 1975 while most buildings in the social housing category were built between 1975 and 2000. Most buildings in the TCHC category were built shortly before 1975 and more houses in this category have been built between 1950 and 2000, hence the wider area.
+
+First, I filtered out missing values from `year_built` and mapped `year_built` to the x-axis and also mapped `property_type` to the `fill` aesthetics. An `alpha` of 0.2 was used to tone down the colour on the plot for a better view of the three categories in property_type- `PRIVATE, SOCIAL HOUSING, TCHC`. I also added another layer- `theme_minimal`to lighten the grids in the background. 
+
+
+
+
