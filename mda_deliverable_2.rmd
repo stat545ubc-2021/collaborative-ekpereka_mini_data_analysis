@@ -229,7 +229,24 @@ Based on the definition above, can you identify if your data is tidy or untidy? 
 
 <!--------------------------- Start your work below --------------------------->
 
+**I will extract 8 variables for this question**
 
+```{r}
+# Subset the `apt_buildings` dataset: select 8 variables
+(apt_buildings_subvar <- apt_buildings %>% 
+   select(id, air_conditioning, 
+          heating_type, 
+          no_of_storeys, 
+          visitor_parking, 
+          window_type,
+          property_type, 
+          year_built)
+ )
+```
+
+The data subset above contains 8 variables and 3455 observations. The `id` variable uniquely identifies each observation. Each row is a single observation - contains all values measured on a particular building, each column is a single variable - contains values that measure the same underlying attribute, each cell is a single value. 
+
+Additionally, considering my research questions, the data is tidy.
 <!----------------------------------------------------------------------------->
 
 ### 2.2 (5 points)
@@ -240,8 +257,52 @@ If your data is untidy, then tidy it! Then, untidy it back to it's original stat
 
 Be sure to explain your reasoning for this task. Show us the "before" and "after".
 
-<!--------------------------- Start your work below --------------------------->
 
+<!--------------------------- Start your work below --------------------------->
+**First, let me show the `before` state of the `apt_buildings_subvar` data in its `tidy` form as already explained above**
+
+```{r}
+# The data in a tidy form
+(apt_buildings_subvar <- apt_buildings %>% 
+   select(id, air_conditioning, 
+          heating_type, 
+          no_of_storeys, 
+          visitor_parking, 
+          window_type, 
+          property_type, 
+          year_built)
+ )
+```
+
+
+
+**Second, below is the state of the `apt_buildings_subvar` data in its *untidy* form**
+
+```{r}
+# The data in an untidy form
+(apt_buildings_subvar_wider <- apt_buildings_subvar %>% 
+   mutate(property_type_val = TRUE) %>%
+   pivot_wider(id_cols = c(-property_type, - property_type_val), 
+               names_from = property_type, 
+               values_from = property_type_val, 
+               values_fill = list(property_type_val = FALSE)) %>% 
+   select(id, PRIVATE, TCHC, `SOCIAL HOUSING`, everything()))
+  
+```
+
+As can be seen above, the three new columns `PRIVATE`, `TCHC`, and `SOCIAL HOUSING` are all values that can be grouped under a single variable. For example,  PRIVATE makes no meaning as a variable. Besides, in this format, it is untidy to use to answer my research questions. The 3 new columns can be conveniently grouped under a variable that measures the type of property each building belongs to.
+
+
+**Now, let me revert the `apt_buildings_subvar` data to its original tidy state!**
+
+```{r}
+(apt_buildings_subvar_longer <- apt_buildings_subvar_wider %>% 
+    pivot_longer(PRIVATE:`SOCIAL HOUSING`, names_to = "property_type", values_to = "property_type_val") %>%             filter(property_type_val) %>% 
+    select(-property_type_val))
+```
+
+
+The `apt_buildings_subvar` dataset named `apt_buildings_subvar_longer` now has the `property_type` variable measuring the same attribute using the `PRIVATE`, `TCHC`, and `SOCIAL HOUSING` values. It is now in the original tidy state.
 
 <!----------------------------------------------------------------------------->
 
