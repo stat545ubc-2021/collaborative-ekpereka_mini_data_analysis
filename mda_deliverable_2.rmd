@@ -74,6 +74,29 @@ Ensure that the output of each operation is printed!
 Make sure it's clear what research question you are doing each operation for!
 
 <!------------------------- Start your work below ----------------------------->
+**Research Question 1: In what years was the central air-conditioning system mostly installed in buildings?**
+
+To answer the question, it would be good to determine what the air-conditioning types are and their frequencies especially that of the *central air*. Then, we would go on to visualize the frequency of use throughout the years under review(1805 - 2019).
+
+```{r}
+# Compute the number of observations for at least one of your categorical variables(air_conditioning)
+apt_buildings %>% 
+  group_by(air_conditioning) %>% 
+  summarize(n = n())
+
+#Make a graph where it makes sense to customize the alpha transparency: determine when central air-conditioning system was mostly installed
+
+apt_buildings %>% 
+  filter(!is.na(year_built), !is.na(air_conditioning)) %>% 
+  ggplot(aes(year_built, fill = air_conditioning)) + 
+  geom_density(alpha = 0.4)
+
+```
+
+
+In trying to answer **research question 1 above**, it made sense to first determine the total number of `central air` air-conditioning units installed in buildings. Surprisingly, it was discovered that `most of the buildings had no air-conditioning installed!` `Eighty-five` buildings had missing information on air-conditioning.
+
+To further answer the research question, a density plot was used to determine when central air-conditioning was mostly installed in buildings. The plot clearly lays out the 3 air-conditioning systems where it shows that `central air` installation increased after 1950 and remained the most installed air-conditioning system from around 1975 to 2019.
 
 
 <!----------------------------------------------------------------------------->
