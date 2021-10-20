@@ -194,7 +194,20 @@ Most of the `FREE` visitor parking is found in `PRIVATE` buildings. Many `PRIVAT
 Based on the operations that you've completed, how much closer are you to answering your research questions? Think about what aspects of your research questions remain unclear. Can your research questions be refined, now that you've investigated your data a bit more? Which research questions are yielding interesting results?
 
 <!------------------------- Write your answer here ---------------------------->
+Based on the operations completed, all of the research questions have been answered. Research question 1 yielded interesting results; it was discovered that majority of the buildings lack air-conditioning units. It would be interesting to find out the property types that were built without air-conditioning system.
 
+```{r}
+# Determine property types built without air-conditioning units installed
+apt_buildings %>%  filter(!is.na(property_type), 
+                          !is.na(no_of_storeys), 
+                          !is.na(air_conditioning)) %>% 
+  ggplot(aes(air_conditioning, no_of_storeys)) + 
+  geom_jitter(width = 0.3, alpha = 0.2) + 
+  facet_wrap(~ property_type) +
+  coord_flip()
+```
+
+The analysis above shows that `PRIVATE` property type has the highest concentration of buildings without air-conditioning system. It also reveals that most `TCHC` buildings don't have air-conditioning system while the few that have make use of the `CENTRAL AIR`. `alpha transparency` and `jittering` were used to reveal overlapping points.
 
 <!----------------------------------------------------------------------------->
 
