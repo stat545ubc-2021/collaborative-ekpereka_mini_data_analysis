@@ -99,6 +99,41 @@ In trying to answer **research question 1 above**, it made sense to first determ
 To further answer the research question, a density plot was used to determine when central air-conditioning was mostly installed in buildings. The plot clearly lays out the 3 air-conditioning systems where it shows that `central air` installation increased after 1950 and remained the most installed air-conditioning system from around 1975 to 2019.
 
 
+
+**Research question 2: Which heating type is the most common among very tall buildings?**
+
+Let me first check the distribution of the different heating types among all the buildings. After that, I will go ahead and visualize that distribution graphically. Hopefully we would be able to see the heating type that is most common among very tall buildings.
+
+```{r, message = FALSE}
+# Compute the range, mean, median and sum of one numerical variable(no_of_storeys) across the groups of one categorical variable(heating_type) from your data
+
+apt_buildings %>%
+  filter(!is.na(heating_type), !is.na(no_of_storeys)) %>%
+  group_by(heating_type) %>%
+  summarise(storey_range = paste(min(no_of_storeys), "-", max(no_of_storeys)),
+            storey_mean = mean(no_of_storeys, na.rm = TRUE),
+            storey_median = median(no_of_storeys, na.rm = TRUE),
+            n = sum(!is.na(no_of_storeys)))
+
+
+# Create a graph out of summarized variables that has at least two geom layers
+# Create a boxplot to show range(minimum, maximum), median no_of_storeys across the heating types. Add mean as a second layer 
+apt_buildings %>% 
+  filter(!is.na(heating_type), !is.na(no_of_storeys)) %>% 
+  ggplot(aes(heating_type, no_of_storeys)) + 
+  geom_boxplot(aes(fill = heating_type), show.legend = FALSE) + 
+  stat_summary(fun = mean, shape = 3, na.rm = TRUE)
+
+```
+
+
+For **research question 2 above**, first it is shown that `HOT WATER` is the mostly used heating type, and that 50% of the buildings have 5 - 6 storeys. The average number of storeys to use `ELECTRIC` is approximately 10, the average number of storeys to use `FORCED AIR GAS` is approximately 8, while the average number of storeys to use `HOT WATER` is approximately 8. The tallest buildings to use `ELECTRIC` heating type have `33 storeys`, the tallest buildings to use `FORCED AIR GAS` have `43 storeys`, while the tallest building to use `HOT WATER` has `51 storeys`. 
+
+Graphically, it is seen that `HOT WATER` heating type was installed in the tallest building. However, it is also seen that `FORCED AIR GAS`is fairly common in very tall buildings as well.
+
+
+
+
 <!----------------------------------------------------------------------------->
 
 ### 1.3 (2.5 points)
