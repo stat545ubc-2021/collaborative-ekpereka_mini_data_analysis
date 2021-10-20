@@ -517,7 +517,8 @@ tidy state!**
 
 ``` r
 (apt_buildings_subvar_longer <- apt_buildings_subvar_wider %>% 
-    pivot_longer(PRIVATE:`SOCIAL HOUSING`, names_to = "property_type", values_to = "property_type_val") %>%             filter(property_type_val) %>% 
+    pivot_longer(PRIVATE:`SOCIAL HOUSING`, names_to = "property_type", values_to = "property_type_val") %>% 
+    filter(property_type_val) %>% 
     select(-property_type_val))
 ```
 
