@@ -133,6 +133,35 @@ Graphically, it is seen that `HOT WATER` heating type was installed in the talle
 
 
 
+**Research question 3: Is there a change in the number of storeys built over the years in relation to window type?**
+
+To answer this question, let me first of all group the years in which the buildings were erected into 5 categories: `ancient(before 1850)`, `very old(before 1900)`, `old(before 1950)`, `recent(before 2000)`, `more recent(before 2020)`. After that, geom_density_ridges will be used to visualize the changes in number of storeys built within the year-groups in relation to window type.
+
+```{r, message = FALSE}
+# Create a categorical variable(age_of_building) with 5 groups from a numerical variable(year_built)
+(apt_buildings_new <- apt_buildings %>% 
+   select(year_built, no_of_storeys, window_type) %>% 
+   filter(!is.na(year_built), !is.na(no_of_storeys), !is.na(window_type)) %>% 
+   mutate(age_of_building = case_when(year_built < 1850 ~ "ancient", 
+                                      year_built < 1900 ~ "very old", 
+                                      year_built < 1950 ~ "old", 
+                                      year_built < 2000 ~ "recent", 
+                                      TRUE ~ "more recent")))
+
+# Make a graph where it makes sense to customize the alpha transparency: visualize the changes in number of storeys built over the years in relation to window type
+
+suppressMessages(print(apt_buildings_new %>% 
+  ggplot(aes(no_of_storeys, age_of_building)) + 
+  geom_density_ridges(aes(fill = window_type), alpha = 0.6, show.legend = FALSE) + 
+  facet_wrap(~ window_type)))
+
+```
+
+
+I set the alpha transparency of the plot above because some peaks ran into the ones above them. From the plot it is seen that houses with more storeys were built within the `recent` and ` more recent` *age_of_building* groups. `ancient` and ` very old` buildings(erected between 1805 and 1850) have `DOUBLE PANE` window type while `recent` and `more recent` buildings(erected between 1950 and 2020) with more storeys have `THERMAL` and `SINGLE PANE` window types.
+
+
+
 
 <!----------------------------------------------------------------------------->
 
