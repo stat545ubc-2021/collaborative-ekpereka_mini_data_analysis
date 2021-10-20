@@ -84,7 +84,7 @@ apt_buildings %>%
   group_by(air_conditioning) %>% 
   summarize(n = n())
 
-#Make a graph where it makes sense to customize the alpha transparency: determine when central air-conditioning system was mostly installed
+# Make a graph where it makes sense to customize the alpha transparency: determine when central air-conditioning system was mostly installed
 
 apt_buildings %>% 
   filter(!is.na(year_built), !is.na(air_conditioning)) %>% 
