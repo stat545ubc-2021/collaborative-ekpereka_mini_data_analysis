@@ -162,7 +162,31 @@ I set the alpha transparency of the plot above because some peaks ran into the o
 
 
 
+**Research question 4: What is the relationship between number of accessible parking spaces and number of storeys for each visitor parking category by property type?**
 
+
+```{r, message = FALSE}
+# Compute the number of observations for at least one of your categorical variables (property_type)
+apt_buildings %>% 
+  group_by(property_type) %>% 
+  summarize(n = n())
+
+# Visualize the relationship between number of accessible parking spaces and number of storeys for each visitor parking category by property type
+apt_buildings %>% 
+  filter(!is.na(visitor_parking), 
+         !is.na(no_of_storeys), 
+         !is.na(no_of_accessible_parking_spaces)) %>% 
+  ggplot(aes(no_of_accessible_parking_spaces, no_of_storeys), na.rm = TRUE) + 
+  geom_jitter(aes(color = property_type), na.rm = TRUE, width = 0.4, alpha = 0.3) + 
+  facet_wrap(~ visitor_parking) + 
+  scale_x_log10() + 
+  labs(x = "Number of accessible parking spaces", y = "Number of storeys") + 
+  theme_minimal()
+
+```
+
+
+Most of the `FREE` visitor parking is found in `PRIVATE` buildings. Many `PRIVATE` buildings with the lowest number of storeys lack parking spaces for visitors whereas buildings in the`TCHC` group have `BOTH` free and paid `visitor_parking` and also many in the same category have `PAID` visitor_parking. The least `FREE` visitor parking is found among TCHC buildings. `SOCIAL HOUSING` buildings have the least `BOTH` visitor parking. Generally, `TCHC` buildings have the least number of accessible parking spaces while `PRIVATE` buildings have the highest number of accessible parking spaces.
 <!----------------------------------------------------------------------------->
 
 ### 1.3 (2.5 points)
