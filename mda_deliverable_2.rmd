@@ -1,6 +1,6 @@
 ---
 title: "Mini Data Analysis Milestone 2"
-output: github_document
+output: html_document
 ---
 
 *To complete this milestone, you can either edit [this `.rmd` file](https://raw.githubusercontent.com/UBC-STAT/stat545.stat.ubc.ca/master/content/mini-project/mini-project-2.Rmd) directly. Fill in the sections that are commented out with `<!--- start your work here--->`. When you are done, make sure to knit to an `.md` file by changing the output in the YAML header to `github_document`, before submitting a tagged release on canvas.*
@@ -94,7 +94,7 @@ apt_buildings %>%
 ```
 
 
-In trying to answer **research question 1 above**, it made sense to first determine the total number of `central air` air-conditioning units installed in buildings. Surprisingly, it was discovered that `most of the buildings had no air-conditioning installed!` `Eighty-five` buildings had missing information on air-conditioning.
+In trying to answer **research question 1 above**, it made sense to first determine the total number of `central air` air-conditioning units installed in buildings. Surprisingly, it was discovered that `most of the buildings have no air-conditioning installed!` `Eighty-five` buildings have missing information on air-conditioning.
 
 To further answer the research question, a density plot was used to determine when central air-conditioning was mostly installed in buildings. The plot clearly lays out the 3 air-conditioning systems where it shows that `central air` installation increased after 1950 and remained the most installed air-conditioning system from around 1975 to 2019.
 
@@ -127,7 +127,7 @@ apt_buildings %>%
 ```
 
 
-For **research question 2 above**, first it is shown that `HOT WATER` is the mostly used heating type, and that 50% of the buildings have 5 - 6 storeys. The average number of storeys to use `ELECTRIC` is approximately 10, the average number of storeys to use `FORCED AIR GAS` is approximately 8, while the average number of storeys to use `HOT WATER` is approximately 8. The tallest buildings to use `ELECTRIC` heating type have `33 storeys`, the tallest buildings to use `FORCED AIR GAS` have `43 storeys`, while the tallest building to use `HOT WATER` has `51 storeys`. 
+For **research question 2 above**, first it is shown that `HOT WATER` is the most used heating type, and that 50% of the buildings have 5 - 6 storeys. The average number of storeys to use `ELECTRIC` is approximately 10, the average number of storeys to use `FORCED AIR GAS` is approximately 8, while the average number of storeys to use `HOT WATER` is approximately 8. The tallest buildings to use `ELECTRIC` heating type have `33 storeys`, the tallest buildings to use `FORCED AIR GAS` have `43 storeys`, while the tallest building to use `HOT WATER` has `51 storeys`. 
 
 Graphically, it is seen that `HOT WATER` heating type was installed in the tallest building. However, it is also seen that `FORCED AIR GAS`is fairly common in very tall buildings as well.
 
@@ -158,7 +158,7 @@ suppressMessages(print(apt_buildings_new %>%
 ```
 
 
-I set the alpha transparency of the plot above because some peaks ran into the ones above them. From the plot it is seen that houses with more storeys were built within the `recent` and ` more recent` *age_of_building* groups. `ancient` and ` very old` buildings(erected between 1805 and 1850) have `DOUBLE PANE` window type while `recent` and `more recent` buildings(erected between 1950 and 2020) with more storeys have `THERMAL` and `SINGLE PANE` window types.
+I set the alpha transparency of the plot above because some peaks ran into the ones above them. From the plot it is seen that houses with more storeys were built within the `recent` and ` more recent` *age_of_building* groups. `ancient` and ` very old` buildings(erected between 1805 and 1850) have `DOUBLE PANE` window type while `recent` and `more recent` buildings(erected between 1950 and 2020) with more storeys have `THERMAL` and `SINGLE PANE` window types in addition to `DOUBLE PANE`.
 
 
 
@@ -171,6 +171,8 @@ apt_buildings %>%
   group_by(property_type) %>% 
   summarize(n = n())
 
+
+# Create a graph of your choosing, make one of the axes logarithmic, and format the axes labels so that they are "pretty" or easier to read
 # Visualize the relationship between number of accessible parking spaces and number of storeys for each visitor parking category by property type
 apt_buildings %>% 
   filter(!is.na(visitor_parking), 
@@ -193,8 +195,9 @@ Most of the `FREE` visitor parking is found in `PRIVATE` buildings. Many `PRIVAT
 
 Based on the operations that you've completed, how much closer are you to answering your research questions? Think about what aspects of your research questions remain unclear. Can your research questions be refined, now that you've investigated your data a bit more? Which research questions are yielding interesting results?
 
+
 <!------------------------- Write your answer here ---------------------------->
-Based on the operations completed, all of the research questions have been answered. Research question 1 yielded interesting results; it was discovered that majority of the buildings lack air-conditioning units. It would be interesting to find out the property types that were built without air-conditioning system.
+**Based on the operations completed, all of the research questions have been answered.** Research question 1 yielded interesting results; it was discovered that majority of the buildings lack air-conditioning units. It would be interesting to find out the property types that were built without air-conditioning system.
 
 ```{r}
 # Determine property types built without air-conditioning units installed
@@ -290,7 +293,7 @@ Be sure to explain your reasoning for this task. Show us the "before" and "after
   
 ```
 
-As can be seen above, the three new columns `PRIVATE`, `TCHC`, and `SOCIAL HOUSING` are all values that can be grouped under a single variable. For example,  PRIVATE makes no meaning as a variable. Besides, in this format, it is untidy to use to answer my research questions. The 3 new columns can be conveniently grouped under a variable that measures the type of property each building belongs to.
+As can be seen above, the three new columns `PRIVATE`, `TCHC`, and `SOCIAL HOUSING` are all values that can be grouped under a single variable. For example,  `PRIVATE` makes no meaning as a variable. Besides, in this format, it is untidy to use to answer my research questions. The 3 new columns can be conveniently grouped under a variable that measures the type of property each building belongs to.
 
 
 **Now, let me revert the `apt_buildings_subvar` data to its original tidy state!**
@@ -324,21 +327,19 @@ I chose the 2 questions above because of their relevance to tasks in milestone 3
 ```{r}
 # Choose a version of the apt_buildings data appropriate to answer the 2 research questions for milestone 3
 (apt_buildings %>% 
-  select(id, heating_type, no_of_storeys, year_built, window_type) %>%
-  filter(!is.na(heating_type), !is.na(no_of_storeys), !is.na(year_built),!is.na(window_type)) %>%
-  mutate(age_of_building = case_when(year_built < 1850 ~ "ancient", 
+   select(id, heating_type, no_of_storeys, year_built, window_type) %>%
+   filter(!is.na(heating_type), !is.na(no_of_storeys), !is.na(year_built),!is.na(window_type)) %>%
+   mutate(age_of_building = case_when(year_built < 1850 ~ "ancient", 
                                       year_built < 1900 ~ "very old", 
                                       year_built < 1950 ~ "old", 
                                       year_built < 2000 ~ "recent", 
                                       TRUE ~ "more recent")) %>%
-  arrange(desc(year_built))
+   mutate(across(where(is.character), tolower)) %>%
+   arrange(desc(year_built))
  )
-  
 ```
 
-First, I piped the apt_buildings data into the `select` function where I selected five variables that will be appropriate for milestone 3. Next, I piped it into the `filter` function to remove all missing values in the selected variables. I piped that again into the `mutate` function where I created a new variable named `age_of_building` which grouped the years that the buildings were erected into 5 categories. Finally, I rearranged the dataset by arranging the `year_built` variable in descending order.
-
-
+First, I piped the apt_buildings data into the `select` function where I selected five variables that will be appropriate for milestone 3. Next, I piped it into the `filter` function to remove all missing values in the selected variables. I piped that again into the `mutate` function where I created a new variable named `age_of_building` which grouped the years that the buildings were erected into 5 categories. The variable names are in lowercase but the character values are in uppercase. So, I cleaned the dataset by converting every character to lowercase for uniformity. Finally, I rearranged the dataset by arranging the `year_built` variable in descending order.
 <!----------------------------------------------------------------------------->
 
 *When you are done, knit an `md` file. This is what we will mark! Make sure to open it and check that everything has knitted correctly before submitting your tagged release.*
