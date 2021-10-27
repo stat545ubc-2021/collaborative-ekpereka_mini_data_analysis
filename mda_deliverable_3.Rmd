@@ -53,11 +53,31 @@ For this exercise, you'll be choosing two of the three tasks below -- both tasks
 
 But first, tasks 1 and 2 below ask you to modify a plot you made in a previous milestone. The plot you choose should involve plotting across at least three groups (whether by facetting, or using an aesthetic like colour). Place this plot below (you're allowed to modify the plot if you'd like). If you don't have such a plot, you'll need to make one. Place the code for your plot below.
 
+
 <!-------------------------- Start your work below ---------------------------->
 
+**Plot to be used for subsequent tasks**
 
+```{r}
+# A subset of the apt_buildings dataset
+(apt_buildings_sst <- apt_buildings %>% 
+   select(id, heating_type, no_of_storeys, year_built, window_type) %>%
+   filter(!is.na(heating_type), !is.na(no_of_storeys), !is.na(year_built),!is.na(window_type)) %>%
+   mutate(age_of_building = case_when(year_built < 1850 ~ "ancient", 
+                                      year_built < 1900 ~ "very old", 
+                                      year_built < 1950 ~ "old", 
+                                      year_built < 2000 ~ "recent", 
+                                      TRUE ~ "more recent")) %>% 
+   mutate(across(where(is.character), tolower)) %>% 
+   mutate(age_of_building = factor(age_of_building)))
+
+# A plot containing factor to be reordered
+ggplot(apt_buildings_sst, aes(age_of_building, no_of_storeys)) + 
+  geom_boxplot() + scale_y_log10()
+```
 
 <!----------------------------------------------------------------------------->
+
 
 Now, choose two of the following tasks.
 
@@ -76,19 +96,39 @@ Now, choose two of the following tasks.
 
 <!-------------------------- Start your work below ---------------------------->
 
-**Task Number**: FILL_THIS_IN
+**Task Number: 1**
 
+I will go ahead and reorder the plot below so that the `age of building` will be rearranged by the `average number of storeys`
 
+```{r}
+# Reorder age_of_building by average number of storeys
+apt_buildings_sst %>% mutate(age_of_building = factor(age_of_building)) %>% mutate(age_of_building = fct_reorder(age_of_building, no_of_storeys, mean)) %>% ggplot(aes(age_of_building, no_of_storeys)) + geom_boxplot() + scale_y_log10()
 
+```
+
+I chose to reorder the factor `age_of_building` because the plot before the ordering is hard to understand; the number of storeys in each `age_of_building` group is hard to read. So, I had to reorder the `age_of_building` values by the average number of storeys in each group. 
+
+The resultant plot is much easier to read; at a glance, one can easily see the minimum, maximum, and median number of storeys.
 <!----------------------------------------------------------------------------->
 
 
 <!-------------------------- Start your work below ---------------------------->
 
-**Task Number**: FILL_THIS_IN
+**Task Number: 2**
 
+I will also produce a new plot that groups `ancient` and `very old` factor levels together into an "other" category (or something similar)
 
+```{r}
+# Group ancient and very old buildings into "other"
+(collapse_to_other <- apt_buildings_sst %>% 
+  mutate(age_of_building = fct_collapse(age_of_building, other = c("ancient", "very old"))) %>% 
+  mutate(age_of_building = fct_reorder(age_of_building, no_of_storeys, mean)) %>%
+  ggplot(aes(age_of_building, no_of_storeys)) + 
+  geom_boxplot(aes(colour = age_of_building), show.legend = FALSE) + scale_y_log10())
 
+```
+
+I grouped `ancient` and `very old` buildings together because I am only interested in investigating `old`, `recent`, and `more recent` buildings individually. `ancient` and ` very old` are just too back in years that I decided to group them under `other`.
 <!----------------------------------------------------------------------------->
 
     
