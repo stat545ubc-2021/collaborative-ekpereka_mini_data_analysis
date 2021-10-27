@@ -132,7 +132,6 @@ I grouped `ancient` and `very old` buildings together because I am only interest
 <!----------------------------------------------------------------------------->
 
     
-
 # Exercise 2: Modelling
 
 ## 2.0 (no points)
@@ -141,9 +140,9 @@ Pick a research question, and pick a variable of interest (we'll call it "Y") th
 
 <!-------------------------- Start your work below ---------------------------->
 
-**Research Question**: FILL_THIS_IN
+**Research Question: 2**
 
-**Variable of interest**: FILL_THIS_IN
+**Variable of interest**: Y = no_of_storeys
 
 <!----------------------------------------------------------------------------->
 
@@ -157,7 +156,25 @@ Fit a model or run a hypothesis test that provides insight on this variable with
     - You could use `lm()` to test for significance of regression.
 
 <!-------------------------- Start your work below ---------------------------->
+I will use the `lm()` function to fit a linear model to `no_of_storeys` by `year_built`. But before I do so, I will filter out number of storeys built before 1900 from the `apt_buildings_sst` dataset. This is because there are very few observations between 1805 and 1899 so the linear model won't be skewed to the negative y-axis. 
 
+Furthermore, I will shift the intersect so that the start of the line is 1900 instead of 0 since observations before 1900 have been filtered out. 
+
+```{r}
+# Filter the apt_buildings_sst dataset to only number of storeys built after 1899.
+
+(apt_buildings_sst_fltr <- apt_buildings_sst %>% filter(year_built > 1899))
+
+
+# Fit a linear model to change in no_of_storeys by year_built
+
+(lm_no_of_storeys <- lm(no_of_storeys ~ I(year_built - 1900), apt_buildings_sst_fltr))
+
+# Plot a graph showing the linear model
+apt_buildings_sst_fltr %>% ggplot(aes(year_built, no_of_storeys)) + geom_point() + geom_smooth(method = "lm")
+
+
+```
 
 <!----------------------------------------------------------------------------->
 
@@ -170,10 +187,14 @@ Produce something relevant from your fitted model: either predictions on Y, or a
 - Obtain your results using the `broom` package if possible. If your model is not compatible with the broom function you're needing, then you can obtain your results by some other means, but first indicate which broom function is not compatible. 
   
 <!-------------------------- Start your work below ---------------------------->
-
-
+**I will determine the p-value of the fitted model**
+```{r}
+# Determine the p-value of the fitted model
+broom::glance(lm_no_of_storeys)
+```
 <!----------------------------------------------------------------------------->
 
+From the analysis above, the p-value column shows that the `p-value is 1.12e-111`. This indicates that the relationship between `no_of_storeys` and `year_built` is statistically significant given the threshold: (p< 0.05).
 
 
 # Exercise 3: Reading and writing data
