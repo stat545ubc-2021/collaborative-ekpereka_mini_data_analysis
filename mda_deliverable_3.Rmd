@@ -209,7 +209,19 @@ Take a summary table that you made from Milestone 2 (Exercise 1.2), and write it
 - **Reproducibility criteria**: You should be able to delete the csv file, and remake it simply by knitting this Rmd file. 
   
 <!-------------------------- Start your work below ---------------------------->
+```{r}
+# A summary table from Milestone 2
+(summary_air_conditioning <- apt_buildings %>% 
+  group_by(air_conditioning) %>% 
+  summarize(n = n()))
 
+# Create a folder called output in your repository
+dir.create(here::here("output"))
+
+# Write summary_no_of_storeys as a csv file to `output
+write_csv(summary_air_conditioning, here::here("output", "summary_air_conditioning.csv"))
+
+```
 
 <!----------------------------------------------------------------------------->
 
@@ -220,7 +232,15 @@ Write your model object from Exercise 2 to an R binary file (an RDS), and load i
 - The same robustness and reproducibility criteria as in 3.1 apply here.
 
 <!-------------------------- Start your work below ---------------------------->
+**I will now write `lm_no_of-storeys` to an R binary file and load it again**
 
+```{r}
+# Write the model object `lm_no_of_storeys` to an RDS
+saveRDS(lm_no_of_storeys, here::here("output", "lm_no_of_storeys.rds"))
+
+# Load the model object
+readRDS(here::here("output", "lm_no_of_storeys.rds"))
+```
 
 <!----------------------------------------------------------------------------->
 
