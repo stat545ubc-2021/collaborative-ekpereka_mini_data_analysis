@@ -1,0 +1,1 @@
+This folder contains output files namely: lm_no_of_storeys.rds and summary_air_conditioning.csv saved using code in the source file. It also contains a README file.
