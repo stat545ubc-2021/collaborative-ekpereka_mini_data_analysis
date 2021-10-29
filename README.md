@@ -17,7 +17,7 @@ It also requires loading the `datateachr` and `tidyverse` packages which are nec
 + Process and summarize your data
 + Tidy your data
 
-*Mini-project 3 comprises 3 exercises**
+**Mini-project 3 comprises 3 exercises**
 
 + Special Data Types
 + Modelling
