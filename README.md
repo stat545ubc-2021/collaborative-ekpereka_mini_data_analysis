@@ -30,21 +30,21 @@ There is a main README.md file which summarizes the project and folders in the r
 
 1. Milestone_1 contains the following files:
 
-+ README.md
++ README_1.md
 + mda_deliverable_1.Rmd
 + mda_deliverable_1.md
 + mda_deliverable_1_files
 
 2. Milestone_2 contains these files:
 
-+ README.md
++ README_2.md
 + mda_deliverable_2.rmd
 + mda_deliverable_2.md
 + mda_deliverable_2_files
 
 3. Milestone_3 contains the following:
 
-+ README.md
++ README_3.md
 + mda_deliverable_3.Rmd
 + mda_deliverable_3.md
 + mda_deliverable_3_files
