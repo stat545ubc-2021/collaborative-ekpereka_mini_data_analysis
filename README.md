@@ -30,27 +30,27 @@ There is a main README.md file which summarizes the project and folders in the r
 
 1. Milestone_1 contains the following files:
 
-+ README_1.md
++ README.md
 + mda_deliverable_1.Rmd
 + mda_deliverable_1.md
 + mda_deliverable_1_files
 
 2. Milestone_2 contains these files:
 
-+ README_2.md
++ README.md
 + mda_deliverable_2.rmd
 + mda_deliverable_2.md
 + mda_deliverable_2_files
 
 3. Milestone_3 contains the following:
 
-+ README_3.md
++ README.md
 + mda_deliverable_3.Rmd
 + mda_deliverable_3.md
 + mda_deliverable_3_files
 
 3. output contains the following files:
-+ README_output.md
++ README.md
 + lm_no_of_storeys.rds
 + summary_air_conditioning.csv
 
