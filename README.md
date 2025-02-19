@@ -49,7 +49,7 @@ There is a main README.md file which summarizes the project and folders in the r
 + mda_deliverable_3.md
 + mda_deliverable_3_files
 
-3. output contains the following files:
+3. Output contains the following files:
 + README.md
 + lm_no_of_storeys.rds
 + summary_air_conditioning.csv
